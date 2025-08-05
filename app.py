@@ -207,55 +207,55 @@ class TestScopeApp:
         """Seçilen standarda göre test senaryolarını döndürür"""
         scenarios = {
             "MIL-STD-810": {
-                "🔥 Yüksek Sıcaklık": {
+                "Yüksek Sıcaklık": {
                     "temp": 65, "humidity": 50, "vibration": 5.0, "pressure": 1013,
                     "method": "501.7", "duration": "6 saat", "color": "#FF6B35"
                 },
-                "💧 Yüksek Nem": {
+                "Yüksek Nem": {
                     "temp": 25, "humidity": 90, "vibration": 5.0, "pressure": 1013,
                     "method": "507.6", "duration": "24 saat", "color": "#4ECDC4"
                 },
-                "📈 Yüksek Titreşim": {
+                "Yüksek Titreşim": {
                     "temp": 25, "humidity": 50, "vibration": 35.0, "pressure": 1013,
                     "method": "514.7", "duration": "2 saat", "color": "#9B59B6"
                 },
-                "⚡ Kombine Test": {
+                "Kombine Test": {
                     "temp": 60, "humidity": 85, "vibration": 25.0, "pressure": 1013,
                     "method": "520.3", "duration": "4 saat", "color": "#F39C12"
                 }
             },
             "ISO 16750": {
-                "🔥 Yüksek Sıcaklık": {
+                "Yüksek Sıcaklık": {
                     "temp": 70, "humidity": 45, "vibration": 3.0, "pressure": 1013,
                     "method": "5.1.1", "duration": "8 saat", "color": "#E74C3C"
                 },
-                "💧 Yüksek Nem": {
+                "Yüksek Nem": {
                     "temp": 30, "humidity": 95, "vibration": 3.0, "pressure": 1013,
                     "method": "5.2.1", "duration": "48 saat", "color": "#3498DB"
                 },
-                "📈 Yüksek Titreşim": {
+                "Yüksek Titreşim": {
                     "temp": 30, "humidity": 45, "vibration": 40.0, "pressure": 1013,
                     "method": "5.3.1", "duration": "1 saat", "color": "#8E44AD"
                 },
-                "⚡ Kombine Test": {
+                "Kombine Test": {
                     "temp": 65, "humidity": 80, "vibration": 20.0, "pressure": 1013,
                     "method": "5.4.1", "duration": "6 saat", "color": "#F1C40F"
                 }
             },
             "IEC 60068": {
-                "🔥 Yüksek Sıcaklık": {
+                "Yüksek Sıcaklık": {
                     "temp": 60, "humidity": 40, "vibration": 4.0, "pressure": 1013,
                     "method": "2-14", "duration": "5 saat", "color": "#D35400"
                 },
-                "💧 Yüksek Nem": {
+                "Yüksek Nem": {
                     "temp": 25, "humidity": 85, "vibration": 4.0, "pressure": 1013,
                     "method": "2-30", "duration": "12 saat", "color": "#2980B9"
                 },
-                "📈 Yüksek Titreşim": {
+                "Yüksek Titreşim": {
                     "temp": 25, "humidity": 40, "vibration": 30.0, "pressure": 1013,
                     "method": "2-6", "duration": "3 saat", "color": "#7D3C98"
                 },
-                "⚡ Kombine Test": {
+                "Kombine Test": {
                     "temp": 55, "humidity": 75, "vibration": 15.0, "pressure": 1013,
                     "method": "2-1", "duration": "4 saat", "color": "#E67E22"
                 }
@@ -264,32 +264,29 @@ class TestScopeApp:
         return scenarios.get(standard, scenarios["MIL-STD-810"])
     
     def create_visual_tooltip(self, temp, humidity, vibration, pressure, standard="MIL-STD-810", method="514.7", duration="2 saat"):
-        """İyileştirilmiş hazır senaryo tooltip formatı oluşturur"""
-        # Risk hesaplama
+        """Gelişmiş hazır senaryo tooltip formatı - renkli ikon ve metin"""
         risk_factors = self.data_processor.calculate_risk_factors(temp, humidity, vibration, pressure)
         total_risk = (risk_factors['temperature_risk'] + risk_factors['humidity_risk'] +
                        risk_factors['vibration_risk'] + risk_factors['pressure_risk']) / 4
 
-        # Risk seviyesi belirleme ve renk kodlaması
+        # Risk seviyesi ve renk kodu
         if total_risk <= 0.3:
-            risk_icon = "🟩"
+            risk_icon = "&#x1F7E2;"  # yeşil daire
             risk_text = "Düşük Risk"
-            risk_color = "#2e7d32"
+            risk_color = "#43A047"
         elif total_risk <= 0.6:
-            risk_icon = "🟨"
+            risk_icon = "&#x1F7E1;"  # sarı daire
             risk_text = "Orta Risk"
-            risk_color = "#ef6c00"
+            risk_color = "#FFC107"
         else:
-            risk_icon = "🟥"
+            risk_icon = "&#x1F534;"  # kırmızı daire
             risk_text = "Yüksek Risk"
-            risk_color = "#c62828"
+            risk_color = "#E53935"
 
-        # Düzeltilmiş tooltip formatı - HTML olmadan
-        tooltip = f"""📋 HAZIR SENARYO - {standard}
-🏛️ Method {method} | ⏱️ {duration}
-🌡 {temp}°C | 💧 %{humidity} | 📈 {vibration}g | 🌬 {pressure}hPa
-Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
-
+        tooltip = f"""HAZIR SENARYO - {standard}
+Method {method} | {duration}
+🌡 {temp}°C | 💧 {humidity}% | 📈 {vibration}g | 🌬 {pressure}hPa
+Risk: {risk_text} | Sabit Değerler"""
         return tooltip
     
     def load_or_train_model(self):
@@ -343,7 +340,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
         st.markdown("""
         <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, #2E8B57 0%, #4682B4 100%); 
                     border-radius: 10px; margin-bottom: 30px;">
-            <h1 style="color: white; margin: 0; font-size: 2.5rem;">🔬 TestScope AI</h1>
+            <h1 style="color: white; margin: 0; font-size: 2.5rem;">TestScope AI</h1>
             <h2 style="color: white; margin: 10px 0 0 0; font-size: 1.2rem; opacity: 0.9;">
                 Çevresel Test Risk Tahmin Sistemi
             </h2>
@@ -360,7 +357,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
     def create_test_selection_panel(self):
         """Test seçim ve parametre girişi panelini oluşturur"""
         
-        st.markdown("## 🔧 Test Konfigürasyonu")
+        st.markdown("## Test Konfigürasyonu")
         
         # Sol ve sağ kolonlar
         col_left, col_right = st.columns([1, 2])
@@ -742,20 +739,20 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
         st.markdown("### Test Limitleri")
         
         limits_df = pd.DataFrame([
-            {"Parametre": "🌡️ Sıcaklık", "Min": "-40°C", "Max": "+70°C", "Birim": "°C", "Risk": "Yüksek sıcaklık > 60°C"},
-            {"Parametre": "💧 Nem", "Min": "10%", "Max": "95%", "Birim": "%", "Risk": "Yüksek nem > 90%"},
-            {"Parametre": "📈 Titreşim", "Min": "0.1g", "Max": "50.0g", "Birim": "g", "Risk": "Yüksek titreşim > 30g"},
-            {"Parametre": "🌪️ Basınç", "Min": "800hPa", "Max": "1200hPa", "Birim": "hPa", "Risk": "Düşük/yüksek basınç"}
+            {"Parametre": "Sıcaklık", "Min": "-40°C", "Max": "+70°C", "Birim": "°C", "Risk": "Yüksek sıcaklık > 60°C"},
+            {"Parametre": "Nem", "Min": "10%", "Max": "95%", "Birim": "%", "Risk": "Yüksek nem > 90%"},
+            {"Parametre": "Titreşim", "Min": "0.1g", "Max": "50.0g", "Birim": "g", "Risk": "Yüksek titreşim > 30g"},
+            {"Parametre": "Basınç", "Min": "800hPa", "Max": "1200hPa", "Birim": "hPa", "Risk": "Düşük/yüksek basınç"}
         ])
         
         st.dataframe(limits_df, use_container_width=True)
         
         # PDF bağlantıları
-        st.markdown("### 📄 Standart Dokümanları")
+        st.markdown("### Standart Dokümanları")
         st.markdown("""
-        - 📋 [MIL-STD-810H](https://www.everyspec.com/MIL-STD/MIL-STD-0800-0899/MIL-STD-810H_55998/) - Askeri ekipmanlar için çevresel test standartları
-        - 🚗 [ISO 16750](https://www.iso.org/standard/55998.html) - Otomotiv elektronik ekipmanları için test standartları
-        - ⚡ [IEC 60068](https://webstore.iec.ch/publication/61611) - Çevresel test standartları
+        - [MIL-STD-810H](https://www.everyspec.com/MIL-STD/MIL-STD-0800-0899/MIL-STD-810H_55998/) - Askeri ekipmanlar için çevresel test standartları
+        - [ISO 16750](https://www.iso.org/standard/55998.html) - Otomotiv elektronik ekipmanları için test standartları
+        - [IEC 60068](https://webstore.iec.ch/publication/61611) - Çevresel test standartları
         """)
     
     def perform_analysis(self):
@@ -859,13 +856,13 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
         col1, col2, col3, col4 = st.columns(4)
         
         with col1:
-            st.metric("🌡️ Sıcaklık", f"{test_params['temperature']}°C")
+            st.metric("Sıcaklık", f"{test_params['temperature']}°C")
         with col2:
-            st.metric("💧 Nem", f"{test_params['humidity']}%")
+            st.metric("Nem", f"{test_params['humidity']}%")
         with col3:
-            st.metric("📈 Titreşim", f"{test_params['vibration']}g")
+            st.metric("Titreşim", f"{test_params['vibration']}g")
         with col4:
-            st.metric("🌬️ Basınç", f"{test_params['pressure']}hPa")
+            st.metric("Basınç", f"{test_params['pressure']}hPa")
     
     def sidebar(self):
         """Sidebar içeriği - Standart bağlantılı test senaryoları"""
