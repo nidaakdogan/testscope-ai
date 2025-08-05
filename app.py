@@ -468,11 +468,12 @@ Method {method} | {duration}
                 </div>
                 """, unsafe_allow_html=True)
                 
-                # Sıcaklık slider'ı - Sadece key kullan, value parametresi kullanma
+                # Sıcaklık slider'ı - Session state ile senkronize
                 temperature = st.slider(
                     "Sıcaklık (°C)",
                     min_value=-40,
                     max_value=70,
+                    value=st.session_state.temp_slider,
                     key="temp_slider"
                 )
                 
@@ -506,11 +507,12 @@ Method {method} | {duration}
                 </div>
                 """, unsafe_allow_html=True)
                 
-                # Nem slider'ı - Sadece key kullan, value parametresi kullanma
+                # Nem slider'ı - Session state ile senkronize
                 humidity = st.slider(
                     "Nem (%)",
                     min_value=10,
                     max_value=95,
+                    value=st.session_state.hum_slider,
                     key="hum_slider"
                 )
                 
@@ -545,12 +547,13 @@ Method {method} | {duration}
                 </div>
                 """, unsafe_allow_html=True)
                 
-                # Titreşim slider'ı - Sadece key kullan, value parametresi kullanma
+                # Titreşim slider'ı - Session state ile senkronize
                 vibration = st.slider(
                     "Titreşim (g)",
                     min_value=0.1,
                     max_value=50.0,
                     step=0.1,
+                    value=st.session_state.vib_slider,
                     key="vib_slider"
                 )
                 
@@ -584,11 +587,12 @@ Method {method} | {duration}
                 </div>
                 """, unsafe_allow_html=True)
                 
-                # Basınç slider'ı - Sadece key kullan, value parametresi kullanma
+                # Basınç slider'ı - Session state ile senkronize
                 pressure = st.slider(
                     "Basınç (hPa)",
                     min_value=800,
                     max_value=1200,
+                    value=st.session_state.pres_slider,
                     key="pres_slider"
                 )
                 
