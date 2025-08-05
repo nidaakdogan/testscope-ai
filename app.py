@@ -817,8 +817,8 @@ Method {method} | {duration}
         st.session_state.risk_factors = risk_factors
         st.session_state.analysis_performed = True
         
-        # Sayfayı yenile
-        st.rerun()
+        # Sayfayı yenileme - değerleri korumak için kaldırıldı
+        # st.rerun()
     
     def display_analysis_results(self, prediction, risk_factors, test_params):
         """Analiz sonuçlarını gösterir"""
