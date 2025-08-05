@@ -396,13 +396,13 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 help="Risk tahmini için kullanılacak model"
             )
             
-            # Güven eşiği
+            # Kabul eşiği
             confidence_threshold = st.slider(
-                "🎯 Güven Eşiği (%)",
+                "🎯 Kabul Eşiği (%)",
                 min_value=50,
                 max_value=99,
                 value=70,
-                help="Minimum güven oranı"
+                help="Tahminin kabul edilmesi için gereken minimum güven seviyesi"
             )
             
             # Risk analizi butonu - Gradient ve ikon ile
@@ -612,7 +612,8 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
             prediction = st.session_state.prediction_result
             risk_factors = st.session_state.risk_factors
             
-            # Ana metrikler - eşit boşluklu düzen
+            # Tahmin Bazlı Metrikler
+            st.markdown("### 📊 Tahmin Bazlı Metrikler")
             col1, col2, col3, col4 = st.columns(4)
             
             with col1:
@@ -652,11 +653,12 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 """, unsafe_allow_html=True)
             
             with col3:
-                # Model güveni
+                # Tahmin güveni - mavi ton
                 st.markdown(f"""
                 <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
                     <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
-                        <span style="margin-right: 8px;">🎯</span> Model Güveni
+                        <span style="margin-right: 8px;">🎯</span> Tahmin Güveni
+                        <span style="margin-left: 5px; font-size: 0.8rem; color: #6c757d; cursor: help;" title="Bu tahmin özelinde modelin kendine güven seviyesi">ℹ️</span>
                     </h3>
                     <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #4682B4;">
                         {prediction['confidence']:.1%}
@@ -673,6 +675,56 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                     </h3>
                     <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #28a745;">
                         {prediction['pass_probability']:.1%}
+                    </p>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            # Genel Performans Metrikleri
+            st.markdown("### 🎯 Genel Performans")
+            col_perf1, col_perf2, col_perf3 = st.columns(3)
+            
+            with col_perf1:
+                # Genel Doğruluk - gri ton
+                if self.model and self.model.is_trained:
+                    model_info = self.model.get_model_info()
+                    st.markdown(f"""
+                    <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
+                        <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                            <span style="margin-right: 8px;">📈</span> Genel Doğruluk
+                            <span style="margin-left: 5px; font-size: 0.8rem; color: #6c757d; cursor: help;" title="Modelin geçmiş testlerdeki başarı oranı">ℹ️</span>
+                        </h3>
+                        <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #6c757d;">
+                            {model_info.get('accuracy', 0):.1%}
+                        </p>
+                    </div>
+                    """, unsafe_allow_html=True)
+            
+            with col_perf2:
+                # Kabul Eşiği - kırmızı ton
+                confidence_threshold = getattr(st.session_state, 'confidence_threshold', 70)
+                st.markdown(f"""
+                <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
+                    <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                        <span style="margin-right: 8px;">🎯</span> Kabul Eşiği
+                        <span style="margin-left: 5px; font-size: 0.8rem; color: #6c757d; cursor: help;" title="Tahminin kabul edilmesi için gereken minimum güven seviyesi">ℹ️</span>
+                    </h3>
+                    <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #dc3545;">
+                        {confidence_threshold:.0%}
+                    </p>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with col_perf3:
+                # Model Durumu
+                model_status = "✅ Eğitilmiş" if self.model and self.model.is_trained else "⚠️ Eğitilmemiş"
+                status_color = "#28a745" if self.model and self.model.is_trained else "#ffc107"
+                st.markdown(f"""
+                <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
+                    <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                        <span style="margin-right: 8px;">🤖</span> Model Durumu
+                    </h3>
+                    <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: {status_color};">
+                        {model_status}
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -874,7 +926,8 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
         if self.model and self.model.is_trained:
             model_info = self.model.get_model_info()
             st.sidebar.markdown("### 🤖 Model")
-            st.sidebar.metric("Doğruluk", f"{model_info.get('accuracy', 0):.1%}")
+            st.sidebar.metric("Genel Doğruluk", f"{model_info.get('accuracy', 0):.1%}", 
+                             help="Modelin geçmiş testlerdeki başarı oranı")
         
         st.sidebar.markdown("---")
         
@@ -1172,11 +1225,12 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
             """, unsafe_allow_html=True)
         
         with col3:
-            # Model güveni
+            # Tahmin güveni - mavi ton
             st.markdown(f"""
             <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
                 <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
-                    <span style="margin-right: 8px;">🎯</span> Model Güveni
+                    <span style="margin-right: 8px;">🎯</span> Tahmin Güveni
+                    <span style="margin-left: 5px; font-size: 0.8rem; color: #6c757d; cursor: help;" title="Bu tahmin özelinde modelin kendine güven seviyesi">ℹ️</span>
                 </h3>
                 <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #4682B4;">
                     {prediction['confidence']:.1%}
@@ -1299,7 +1353,8 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 st.metric("Model Tipi", model_info['model_type'].replace('_', ' ').title())
             
             with col2:
-                st.metric("Doğruluk", f"{model_info.get('accuracy', 0):.3f}")
+                st.metric("Genel Doğruluk", f"{model_info.get('accuracy', 0):.3f}", 
+                         help="Modelin geçmiş testlerdeki başarı oranı")
             
             with col3:
                 st.metric("Precision", f"{model_info.get('precision', 0):.3f}")

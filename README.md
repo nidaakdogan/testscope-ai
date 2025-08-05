@@ -28,6 +28,9 @@ Uygulama, sıcaklık, nem, titreşim ve basınç gibi çevresel parametreleri ku
 - **İkon Hizalama:** Tüm ikonlar metinlerle mükemmel hizalanmış
 - **Tipografi:** Büyük ve kalın yüzdeler, okunabilirlik artırıldı
 - **Eşit Boşluklar:** Tüm kartlar arasında tutarlı margin
+- **Açıklayıcı Metrikler:** Tooltip'ler ve daha anlaşılır isimler
+- **Renk Kodlaması:** Tahmin Güveni (mavi), Genel Doğruluk (gri), Kabul Eşiği (kırmızı)
+- **Gruplandırma:** "Tahmin Bazlı Metrikler" ve "Genel Performans" ayrımı
 
 ## 📊 Test Parametreleri
 
