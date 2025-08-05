@@ -366,14 +366,14 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
         col_left, col_right = st.columns([1, 2])
         
         with col_left:
-            st.markdown("### 📋 Test Ayarları")
+            st.markdown("### Test Ayarları")
             
             # Test standardı seçimi - Sidebar ile senkronize
             if 'selected_standard' not in st.session_state:
                 st.session_state.selected_standard = "MIL-STD-810"
             
             test_standard = st.selectbox(
-                "🏛️ Test Standardı",
+                "Test Standardı",
                 ["MIL-STD-810", "ISO 16750", "IEC 60068"],
                 index=["MIL-STD-810", "ISO 16750", "IEC 60068"].index(st.session_state.selected_standard),
                 help="Kullanılacak test standardını seçin"
@@ -384,21 +384,21 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
             
             # Test tipi seçimi
             test_type = st.selectbox(
-                "🧪 Test Tipi",
+                "Test Tipi",
                 ["Yüksek Sıcaklık", "Düşük Sıcaklık", "Nem", "Titreşim", "Termal Şok"],
                 help="Gerçekleştirilecek test tipini seçin"
             )
             
             # Model seçimi
             model_type = st.selectbox(
-                "🤖 Model",
+                "Model",
                 ["Random Forest", "Logistic Regression"],
                 help="Risk tahmini için kullanılacak model"
             )
             
             # Kabul eşiği
             confidence_threshold = st.slider(
-                "🎯 Kabul Eşiği (%)",
+                "Kabul Eşiği (%)",
                 min_value=50,
                 max_value=99,
                 value=70,
@@ -431,12 +431,12 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
             </style>
             """, unsafe_allow_html=True)
             
-            if st.button("🚀 Risk Analizi Yap", type="primary", use_container_width=True, 
+            if st.button("Risk Analizi Yap", type="primary", use_container_width=True, 
                         help="Seçilen parametrelerle risk analizi gerçekleştir"):
                 self.perform_analysis()
         
         with col_right:
-            st.markdown("### 📊 Test Parametreleri")
+            st.markdown("### Test Parametreleri")
             
             # Parametre kartları - 2x2 grid
             col1, col2 = st.columns(2)
@@ -446,12 +446,12 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 st.markdown("""
                 <div style="border: 2px solid #e0e0e0; border-radius: 10px; padding: 15px; margin: 10px 0; 
                             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-                    <h4 style="margin: 0 0 10px 0; color: #495057;">🌡️ Sıcaklık</h4>
+                    <h4 style="margin: 0 0 10px 0; color: #495057;">Sıcaklık</h4>
                     <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #495057;">
                         Test sıcaklığı (-40°C ile +70°C arası)
                     </p>
                     <p style="margin: 0; font-size: 0.8rem; color: #dc3545; font-style: italic;">
-                        ⚠️ Yüksek sıcaklık malzemeye zarar verebilir
+                        Yüksek sıcaklık malzemeye zarar verebilir
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -484,12 +484,12 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 st.markdown("""
                 <div style="border: 2px solid #e0e0e0; border-radius: 10px; padding: 15px; margin: 10px 0; 
                             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-                    <h4 style="margin: 0 0 10px 0; color: #495057;">💧 Nem</h4>
+                    <h4 style="margin: 0 0 10px 0; color: #495057;">Nem</h4>
                     <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #495057;">
                         Test nem oranı (%10 ile %95 arası)
                     </p>
                     <p style="margin: 0; font-size: 0.8rem; color: #dc3545; font-style: italic;">
-                        ⚠️ Yüksek nem korozyona neden olabilir
+                        Yüksek nem korozyona neden olabilir
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -523,12 +523,12 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 st.markdown("""
                 <div style="border: 2px solid #e0e0e0; border-radius: 10px; padding: 15px; margin: 10px 0; 
                             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-                    <h4 style="margin: 0 0 10px 0; color: #495057;">📈 Titreşim</h4>
+                    <h4 style="margin: 0 0 10px 0; color: #495057;">Titreşim</h4>
                     <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #495057;">
                         Test titreşim değeri (0.1g ile 50g arası)
                     </p>
                     <p style="margin: 0; font-size: 0.8rem; color: #dc3545; font-style: italic;">
-                        ⚠️ Yüksek titreşim bağlantıları gevşetebilir
+                        Yüksek titreşim bağlantıları gevşetebilir
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -562,12 +562,12 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 st.markdown("""
                 <div style="border: 2px solid #e0e0e0; border-radius: 10px; padding: 15px; margin: 10px 0; 
                             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-                    <h4 style="margin: 0 0 10px 0; color: #495057;">🌪️ Basınç</h4>
+                    <h4 style="margin: 0 0 10px 0; color: #495057;">Basınç</h4>
                     <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #495057;">
                         Test basınç değeri (800hPa ile 1200hPa arası)
                     </p>
                     <p style="margin: 0; font-size: 0.8rem; color: #dc3545; font-style: italic;">
-                        ⚠️ Aşırı basınç sızdırmazlığı etkileyebilir
+                        Aşırı basınç sızdırmazlığı etkileyebilir
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -605,7 +605,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
     def create_prediction_panel(self):
         """Tahmin sonucu ve risk göstergesi panelini oluşturur"""
         
-        st.markdown("## 🎯 Risk Analiz Sonuçları")
+        st.markdown("## Risk Analiz Sonuçları")
         
         # Eğer analiz yapılmışsa sonuçları göster
         if hasattr(st.session_state, 'prediction_result'):
@@ -613,7 +613,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
             risk_factors = st.session_state.risk_factors
             
             # Tahmin Bazlı Metrikler
-            st.markdown("### 📊 Tahmin Bazlı Metrikler")
+            st.markdown("### Tahmin Bazlı Metrikler")
             col1, col2, col3, col4 = st.columns(4)
             
             with col1:
@@ -680,7 +680,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 """, unsafe_allow_html=True)
             
             # Genel Performans Metrikleri
-            st.markdown("### 🎯 Genel Performans")
+            st.markdown("### Genel Performans")
             col_perf1, col_perf2, col_perf3 = st.columns(3)
             
             with col_perf1:
@@ -759,14 +759,14 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
             # Öneriler
             recommendations = self.data_processor.get_test_recommendations(prediction['risk_score'])
             
-            st.markdown("### 💡 Test Önerileri")
+            st.markdown("### Test Önerileri")
             for i, rec in enumerate(recommendations, 1):
                 st.markdown(f"**{i}.** {rec}")
     
     def create_info_panel(self):
         """Bilgi ve standart referans panelini oluşturur"""
         
-        st.markdown("## 📋 Test Standartları ve Bilgiler")
+        st.markdown("## Test Standartları ve Bilgiler")
         st.markdown("*Test standartları ve metodları hakkında detaylı bilgi için başlıklara tıklayın*")
         
         # Standart bilgileri
@@ -787,7 +787,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                     st.markdown(f"• **{method}:** {description}")
         
         # Test limitleri tablosu
-        st.markdown("### ⚡ Test Limitleri")
+        st.markdown("### Test Limitleri")
         
         limits_df = pd.DataFrame([
             {"Parametre": "🌡️ Sıcaklık", "Min": "-40°C", "Max": "+70°C", "Birim": "°C", "Risk": "Yüksek sıcaklık > 60°C"},
@@ -919,20 +919,20 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
         """Sidebar içeriği - Standart bağlantılı test senaryoları"""
         
         # Ana başlık
-        st.sidebar.markdown("## 🎯 TestScope AI")
+        st.sidebar.markdown("## TestScope AI")
         st.sidebar.markdown("---")
         
         # Model durumu - Sadece önemli bilgi
         if self.model and self.model.is_trained:
             model_info = self.model.get_model_info()
-            st.sidebar.markdown("### 🤖 Model")
+            st.sidebar.markdown("### Model")
             st.sidebar.metric("Genel Doğruluk", f"{model_info.get('accuracy', 0):.1%}", 
                              help="Modelin geçmiş testlerdeki başarı oranı")
         
         st.sidebar.markdown("---")
         
         # Test standardı seçimi - Sidebar'da da göster
-        st.sidebar.markdown("### 🏛️ Test Standardı")
+        st.sidebar.markdown("### Test Standardı")
         selected_standard = st.sidebar.selectbox(
             "Standart Seçin",
             ["MIL-STD-810", "ISO 16750", "IEC 60068"],
@@ -945,7 +945,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
         st.sidebar.markdown("---")
         
         # Hızlı testler - Standart bağlantılı
-        st.sidebar.markdown("### 🧪 Hazır Test Senaryoları")
+        st.sidebar.markdown("### Hazır Test Senaryoları")
         st.sidebar.markdown(f"*{selected_standard} standardına göre sabit değerler*")
         st.sidebar.markdown("*Tek tıkla hazır senaryo yükle*")
         
@@ -1014,11 +1014,11 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
         st.sidebar.markdown("---")
         
         # Veri işlemleri - Küçük bölüm
-        st.sidebar.markdown("### ⚙️ Veri")
+        st.sidebar.markdown("### Veri")
         
         col1, col2 = st.sidebar.columns(2)
         with col1:
-            if st.button("📊 Üret", help="Yeni veri oluştur"):
+            if st.button("Üret", help="Yeni veri oluştur"):
                 self.data_generator.save_mock_data()
                 st.success("✓")
         with col2:
@@ -1029,7 +1029,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
     def risk_analysis_tab(self):
         """Risk analizi sekmesi"""
         
-        st.subheader("🎯 Risk Analizi")
+        st.subheader("Risk Analizi")
         
         # Test parametreleri girişi
         col1, col2 = st.columns([1, 2])
@@ -1068,13 +1068,13 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
             )
         
         with col2:
-            st.subheader("📊 Parametre Değerleri")
+            st.subheader("Parametre Değerleri")
             
             # Parametre kartları
             col_temp, col_hum = st.columns(2)
             
             with col_temp:
-                st.markdown("### 🌡️ Sıcaklık")
+                st.markdown("### Sıcaklık")
                 temperature = st.slider(
                     "Sıcaklık (°C)",
                     min_value=-40,
@@ -1089,7 +1089,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 st.markdown(f"{temp_color} **Seçilen Değer:** {temperature}°C")
             
             with col_hum:
-                st.markdown("### 💧 Nem")
+                st.markdown("### Nem")
                 humidity = st.slider(
                     "Nem (%)",
                     min_value=10,
@@ -1106,7 +1106,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
             col_vib, col_pres = st.columns(2)
             
             with col_vib:
-                st.markdown("### 📈 Titreşim")
+                st.markdown("### Titreşim")
                 vibration = st.slider(
                     "Titreşim (g)",
                     min_value=0.1,
@@ -1122,7 +1122,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 st.markdown(f"{vib_color} **Seçilen Değer:** {vibration}g")
             
             with col_pres:
-                st.markdown("### 🌪️ Basınç")
+                st.markdown("### Basınç")
                 pressure = st.slider(
                     "Basınç (hPa)",
                     min_value=800,
@@ -1137,7 +1137,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 st.markdown(f"{pres_color} **Seçilen Değer:** {pressure}hPa")
         
         # Risk analizi butonu
-        if st.button("🚀 Risk Analizi Yap", type="primary", use_container_width=True):
+        if st.button("Risk Analizi Yap", type="primary", use_container_width=True):
             self.perform_risk_analysis(temperature, humidity, vibration, pressure)
     
     def perform_risk_analysis(self, temperature, humidity, vibration, pressure):
@@ -1183,7 +1183,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
     def display_risk_results(self, prediction, risk_factors, test_params):
         """Risk analiz sonuçlarını gösterir"""
         
-        st.subheader("🎯 Risk Analiz Sonuçları")
+        st.subheader("Risk Analiz Sonuçları")
         
         # Ana metrikler - iyileştirilmiş tasarım
         col1, col2, col3, col4 = st.columns(4)

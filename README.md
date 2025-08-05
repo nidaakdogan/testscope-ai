@@ -4,7 +4,7 @@ TestScope AI, askeri ve endüstriyel standartlara (MIL-STD-810, ISO 16750 vb.) u
 
 Uygulama, sıcaklık, nem, titreşim ve basınç gibi çevresel parametreleri kullanarak cihazların dayanıklılığını değerlendirir ve risk seviyelerini görselleştirir.
 
-## 🚀 Özellikler
+## Özellikler
 
 ### **Çoklu Standart Desteği**
 - MIL-STD-810, ISO 16750 gibi test standartlarına göre hazır senaryolar
@@ -32,7 +32,7 @@ Uygulama, sıcaklık, nem, titreşim ve basınç gibi çevresel parametreleri ku
 - **Renk Kodlaması:** Tahmin Güveni (mavi), Genel Doğruluk (gri), Kabul Eşiği (kırmızı)
 - **Gruplandırma:** "Tahmin Bazlı Metrikler" ve "Genel Performans" ayrımı
 
-## 📊 Test Parametreleri
+## Test Parametreleri
 
 | Parametre | Aralık | Birim |
 |-----------|--------|-------|
@@ -66,7 +66,7 @@ Risk yüzdesi, risk seviyesi ve parametre bazlı analizleri görüntüleyin.
 - **Scikit-learn**: Makine öğrenmesi
 - **Pandas / NumPy**: Veri işleme
 
-## 🎯 Risk Değerlendirme
+## Risk Değerlendirme
 
 - **Düşük Risk (0-30%)**: ✅ Test başarılı
 - **Orta Risk (30-70%)**: ⚠️ Dikkat gerekli  
@@ -103,13 +103,13 @@ TestScope AI/
 └── notebooks/          # Analiz raporları
 ```
 
-## 🤖 AI Modelleri
+## AI Modelleri
 
 - **Random Forest**: %91.2 doğruluk oranı
 - **Logistic Regression**: %70 doğruluk oranı
 - **Otomatik Model Seçimi**: En iyi performans gösteren model
 
-## 📈 Görselleştirmeler
+## Görselleştirmeler
 
 - **Risk Gauge**: Dairesel risk göstergesi
 - **Radar Grafiği**: Parametre risk analizi
