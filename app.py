@@ -366,15 +366,23 @@ Method {method} | {duration}
         
         st.markdown("## Test Konfigürasyonu")
         
+        # Session state varsayılan değerlerini ayarla
+        if 'temp_slider' not in st.session_state:
+            st.session_state.temp_slider = 25
+        if 'hum_slider' not in st.session_state:
+            st.session_state.hum_slider = 50
+        if 'vib_slider' not in st.session_state:
+            st.session_state.vib_slider = 5.0
+        if 'pres_slider' not in st.session_state:
+            st.session_state.pres_slider = 1013
+        if 'selected_standard' not in st.session_state:
+            st.session_state.selected_standard = "MIL-STD-810"
+        
         # Sol ve sağ kolonlar
         col_left, col_right = st.columns([1, 2])
         
         with col_left:
             st.markdown("### Test Ayarları")
-            
-            # Test standardı seçimi - Sidebar ile senkronize
-            if 'selected_standard' not in st.session_state:
-                st.session_state.selected_standard = "MIL-STD-810"
             
             test_standard = st.selectbox(
                 "Test Standardı",
