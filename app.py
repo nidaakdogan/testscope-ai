@@ -612,34 +612,40 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
             prediction = st.session_state.prediction_result
             risk_factors = st.session_state.risk_factors
             
-            # Ana metrikler
+            # Ana metrikler - eşit boşluklu düzen
             col1, col2, col3, col4 = st.columns(4)
             
             with col1:
-                # Tahmin sonucu
+                # Tahmin sonucu - yumuşak kırmızı ton
                 result_color = "🟢" if prediction['prediction'] == 'PASS' else "🔴"
+                result_bg = "#d4edda" if prediction['prediction'] == 'PASS' else "#ffe6e6"  # Yumuşak kırmızı
+                result_border = "#c3e6cb" if prediction['prediction'] == 'PASS' else "#ffcccc"  # Yumuşak kırmızı border
+                result_text = "#155724" if prediction['prediction'] == 'PASS' else "#8b0000"  # Koyu kırmızı
+                
                 st.markdown(f"""
-                <div style="text-align: center; padding: 20px; background: {'#d4edda' if prediction['prediction'] == 'PASS' else '#f8d7da'}; 
-                            border-radius: 10px; border: 2px solid {'#c3e6cb' if prediction['prediction'] == 'PASS' else '#f5c6cb'};">
-                    <h3 style="margin: 0; color: {'#155724' if prediction['prediction'] == 'PASS' else '#721c24'};">
-                        {result_color} {prediction['prediction']}
+                <div style="text-align: center; padding: 20px; background: {result_bg}; 
+                            border-radius: 10px; border: 2px solid {result_border}; margin: 5px;">
+                    <h3 style="margin: 0; color: {result_text}; font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                        <span style="margin-right: 8px;">{result_color}</span> {prediction['prediction']}
                     </h3>
                 </div>
                 """, unsafe_allow_html=True)
             
             with col2:
-                # Risk skoru
+                # Risk skoru - tutarlı yeşil ton
                 risk_score = prediction['risk_score']
                 risk_level = "Düşük" if risk_score < 0.3 else "Orta" if risk_score < 0.6 else "Yüksek"
                 risk_color = "🟢" if risk_score < 0.3 else "🟡" if risk_score < 0.6 else "🔴"
                 
                 st.markdown(f"""
-                <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px; border: 2px solid #dee2e6;">
-                    <h3 style="margin: 0; color: #495057;">{risk_color} Risk Seviyesi</h3>
-                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: bold; color: #495057;">
+                <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
+                    <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                        <span style="margin-right: 8px;">{risk_color}</span> Risk Seviyesi
+                    </h3>
+                    <p style="margin: 8px 0 0 0; font-size: 1.2rem; font-weight: bold; color: #495057;">
                         {risk_level}
                     </p>
-                    <p style="margin: 5px 0 0 0; font-size: 1.5rem; font-weight: bold; color: #2E8B57;">
+                    <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #28a745;">
                         {risk_score:.1%}
                     </p>
                 </div>
@@ -648,20 +654,24 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
             with col3:
                 # Model güveni
                 st.markdown(f"""
-                <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px; border: 2px solid #dee2e6;">
-                    <h3 style="margin: 0; color: #495057;">🎯 Model Güveni</h3>
-                    <p style="margin: 5px 0 0 0; font-size: 1.5rem; font-weight: bold; color: #4682B4;">
+                <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
+                    <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                        <span style="margin-right: 8px;">🎯</span> Model Güveni
+                    </h3>
+                    <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #4682B4;">
                         {prediction['confidence']:.1%}
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
             
             with col4:
-                # PASS olasılığı
+                # PASS olasılığı - tutarlı yeşil ton
                 st.markdown(f"""
-                <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px; border: 2px solid #dee2e6;">
-                    <h3 style="margin: 0; color: #495057;">✅ PASS Olasılığı</h3>
-                    <p style="margin: 5px 0 0 0; font-size: 1.5rem; font-weight: bold; color: #28a745;">
+                <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
+                    <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                        <span style="margin-right: 8px;">✅</span> PASS Olasılığı
+                    </h3>
+                    <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #28a745;">
                         {prediction['pass_probability']:.1%}
                     </p>
                 </div>
@@ -1122,23 +1132,71 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
         
         st.subheader("🎯 Risk Analiz Sonuçları")
         
-        # Ana metrikler
+        # Ana metrikler - iyileştirilmiş tasarım
         col1, col2, col3, col4 = st.columns(4)
         
         with col1:
-            st.metric("Tahmin", prediction['prediction'])
+            # Tahmin sonucu - yumuşak kırmızı ton
+            result_color = "🟢" if prediction['prediction'] == 'PASS' else "🔴"
+            result_bg = "#d4edda" if prediction['prediction'] == 'PASS' else "#ffe6e6"  # Yumuşak kırmızı
+            result_border = "#c3e6cb" if prediction['prediction'] == 'PASS' else "#ffcccc"  # Yumuşak kırmızı border
+            result_text = "#155724" if prediction['prediction'] == 'PASS' else "#8b0000"  # Koyu kırmızı
+            
+            st.markdown(f"""
+            <div style="text-align: center; padding: 20px; background: {result_bg}; 
+                        border-radius: 10px; border: 2px solid {result_border}; margin: 5px;">
+                <h3 style="margin: 0; color: {result_text}; font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                    <span style="margin-right: 8px;">{result_color}</span> {prediction['prediction']}
+                </h3>
+            </div>
+            """, unsafe_allow_html=True)
         
         with col2:
+            # Risk skoru - tutarlı yeşil ton
             risk_score = prediction['risk_score']
-            risk_class = "risk-high" if risk_score > 0.7 else "risk-medium" if risk_score > 0.4 else "risk-low"
-            st.markdown(f'<div class="metric-card"><span class="{risk_class}">Risk Değerlendirme Skoru: {risk_score:.3f}</span></div>', unsafe_allow_html=True)
+            risk_level = "Düşük" if risk_score < 0.3 else "Orta" if risk_score < 0.6 else "Yüksek"
+            risk_color = "🟢" if risk_score < 0.3 else "🟡" if risk_score < 0.6 else "🔴"
+            
+            st.markdown(f"""
+            <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
+                <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                    <span style="margin-right: 8px;">{risk_color}</span> Risk Seviyesi
+                </h3>
+                <p style="margin: 8px 0 0 0; font-size: 1.2rem; font-weight: bold; color: #495057;">
+                    {risk_level}
+                </p>
+                <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #28a745;">
+                    {risk_score:.1%}
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
         
         with col3:
-            st.metric("Güven", f"{prediction['confidence']:.3f}")
+            # Model güveni
+            st.markdown(f"""
+            <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
+                <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                    <span style="margin-right: 8px;">🎯</span> Model Güveni
+                </h3>
+                <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #4682B4;">
+                    {prediction['confidence']:.1%}
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
         
         with col4:
+            # PASS olasılığı - tutarlı yeşil ton
             pass_prob = prediction['pass_probability']
-            st.metric("PASS Olasılığı", f"{pass_prob:.3f}")
+            st.markdown(f"""
+            <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
+                <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                    <span style="margin-right: 8px;">✅</span> PASS Olasılığı
+                </h3>
+                <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #28a745;">
+                    {pass_prob:.1%}
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
         
         # Grafikler
         col1, col2 = st.columns(2)

@@ -17,9 +17,17 @@ Uygulama, sıcaklık, nem, titreşim ve basınç gibi çevresel parametreleri ku
 
 ### **Görselleştirilmiş Sonuçlar**
 - Gauge chart ve bar chart ile risk seviyelerinin görsel analizi
+- **Yeni:** İyileştirilmiş kullanıcı arayüzü - yumuşak renk tonları ve tutarlı tasarım
 
 ### **Parametre Bazlı Risk Analizi**
 - Sıcaklık, nem, titreşim ve basınç değerlerinin ayrı ayrı değerlendirilmesi
+
+### **Gelişmiş Kullanıcı Deneyimi**
+- **Renk Tutarlılığı:** Tüm yeşil tonlar aynı renk paletinde
+- **Yumuşak Kontrast:** FAIL durumu için yumuşak kırmızı tonlar
+- **İkon Hizalama:** Tüm ikonlar metinlerle mükemmel hizalanmış
+- **Tipografi:** Büyük ve kalın yüzdeler, okunabilirlik artırıldı
+- **Eşit Boşluklar:** Tüm kartlar arasında tutarlı margin
 
 ## 📊 Test Parametreleri
 
