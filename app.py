@@ -679,55 +679,7 @@ Risk: {risk_icon} {risk_text} | 🔒 Sabit Değerler"""
                 </div>
                 """, unsafe_allow_html=True)
             
-            # Genel Performans Metrikleri
-            st.markdown("### Genel Performans")
-            col_perf1, col_perf2, col_perf3 = st.columns(3)
-            
-            with col_perf1:
-                # Genel Doğruluk - gri ton
-                if self.model and self.model.is_trained:
-                    model_info = self.model.get_model_info()
-                    st.markdown(f"""
-                    <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
-                        <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
-                            <span style="margin-right: 8px;">📈</span> Genel Doğruluk
-                            <span style="margin-left: 5px; font-size: 0.8rem; color: #6c757d; cursor: help;" title="Modelin geçmiş testlerdeki başarı oranı">ℹ️</span>
-                        </h3>
-                        <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #6c757d;">
-                            {model_info.get('accuracy', 0):.1%}
-                        </p>
-                    </div>
-                    """, unsafe_allow_html=True)
-            
-            with col_perf2:
-                # Kabul Eşiği - kırmızı ton
-                confidence_threshold = getattr(st.session_state, 'confidence_threshold', 70)
-                st.markdown(f"""
-                <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
-                    <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
-                        <span style="margin-right: 8px;">🎯</span> Kabul Eşiği
-                        <span style="margin-left: 5px; font-size: 0.8rem; color: #6c757d; cursor: help;" title="Tahminin kabul edilmesi için gereken minimum güven seviyesi">ℹ️</span>
-                    </h3>
-                    <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: #dc3545;">
-                        {confidence_threshold:.0%}
-                    </p>
-                </div>
-                """, unsafe_allow_html=True)
-            
-            with col_perf3:
-                # Model Durumu
-                model_status = "✅ Eğitilmiş" if self.model and self.model.is_trained else "⚠️ Eğitilmemiş"
-                status_color = "#28a745" if self.model and self.model.is_trained else "#ffc107"
-                st.markdown(f"""
-                <div style="text-align: center; padding: 20px; background: #ffffff; border-radius: 10px; border: 2px solid #dee2e6; margin: 5px;">
-                    <h3 style="margin: 0; color: #495057; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; justify-content: center;">
-                        <span style="margin-right: 8px;">🤖</span> Model Durumu
-                    </h3>
-                    <p style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: bold; color: {status_color};">
-                        {model_status}
-                    </p>
-                </div>
-                """, unsafe_allow_html=True)
+
             
             # Risk gauge grafiği
             col_gauge, col_factors = st.columns(2)
