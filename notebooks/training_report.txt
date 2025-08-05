@@ -1,0 +1,24 @@
+TestScope AI - Model Eğitim Raporu
+==================================================
+
+Model Performans Karşılaştırması:
+------------------------------
+
+RANDOM_FOREST:
+  Doğruluk: 0.912
+  Precision: 0.913
+  Recall: 0.912
+  F1-Score: 0.912
+  CV Mean: 0.921
+  CV Std: 0.006
+
+LOGISTIC_REGRESSION:
+  Doğruluk: 0.700
+  Precision: 0.700
+  Recall: 0.700
+  F1-Score: 0.700
+  CV Mean: 0.729
+  CV Std: 0.005
+
+En İyi Model: random_forest
+Model Bilgileri: {'model_type': 'random_forest', 'is_trained': True, 'feature_names': ['temperature', 'humidity', 'vibration', 'pressure'], 'accuracy': 0.9116666666666666, 'precision': 0.9132885583805089, 'recall': 0.9116666666666666, 'f1_score': 0.9115592820190409}
