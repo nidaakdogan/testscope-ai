@@ -283,10 +283,17 @@ class TestScopeApp:
             risk_text = "Yüksek Risk"
             risk_color = "#E53935"
 
+        # Risk renk kodlaması için emoji
+        if total_risk <= 0.3:
+            risk_emoji = "🟢"  # yeşil daire
+        elif total_risk <= 0.6:
+            risk_emoji = "🟡"  # sarı daire
+        else:
+            risk_emoji = "🔴"  # kırmızı daire
+            
         tooltip = f"""HAZIR SENARYO - {standard}
 Method {method} | {duration}
-🌡 {temp}°C | 💧 {humidity}% | 📈 {vibration}g | 🌬 {pressure}hPa
-Risk: {risk_text} | Sabit Değerler"""
+🌡 {temp}°C | 💧 {humidity}% | 📈 {vibration}g | 🌬 {pressure}hPa | Risk: {risk_emoji} {risk_text} | Sabit Değerler"""
         return tooltip
     
     def load_or_train_model(self):
@@ -945,10 +952,26 @@ Risk: {risk_text} | Sabit Değerler"""
             """
             st.sidebar.markdown(button_style, unsafe_allow_html=True)
             
-            # Buton oluştur - Geliştirilmiş tooltip
+            # Risk hesaplama ve renk kodlaması
+            scenario_risk = self.data_processor.calculate_risk_factors(
+                scenario["temp"], scenario["humidity"], 
+                scenario["vibration"], scenario["pressure"]
+            )
+            total_scenario_risk = (scenario_risk['temperature_risk'] + scenario_risk['humidity_risk'] +
+                                   scenario_risk['vibration_risk'] + scenario_risk['pressure_risk']) / 4
+            
+            # Risk emoji'si
+            if total_scenario_risk <= 0.3:
+                risk_emoji = "🟢"
+            elif total_scenario_risk <= 0.6:
+                risk_emoji = "🟡"
+            else:
+                risk_emoji = "🔴"
+            
+            # Buton oluştur - Sadece risk seviyesi için emoji
             button_key = f"scenario_{test_name.replace(' ', '_').lower()}"
             if st.sidebar.button(
-                test_name, 
+                f"{risk_emoji} {test_name}", 
                 use_container_width=True, 
                 help=tooltip,
                 key=button_key
