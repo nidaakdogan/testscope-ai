@@ -968,10 +968,23 @@ Method {method} | {duration}
             else:
                 risk_emoji = "🔴"
             
-            # Buton oluştur - Sadece risk seviyesi için emoji
+            # Kategoriye özel emoji belirleme
+            category_emoji = ""
+            if "Sıcaklık" in test_name:
+                category_emoji = "🔥"
+            elif "Nem" in test_name:
+                category_emoji = "💧"
+            elif "Titreşim" in test_name:
+                category_emoji = "📉"
+            elif "Kombine" in test_name:
+                category_emoji = "⚡"
+            else:
+                category_emoji = "📋"  # Varsayılan
+            
+            # Buton oluştur - Kategoriye özel emoji ile
             button_key = f"scenario_{test_name.replace(' ', '_').lower()}"
             if st.sidebar.button(
-                f"{risk_emoji} {test_name}", 
+                f"{category_emoji} {test_name}", 
                 use_container_width=True, 
                 help=tooltip,
                 key=button_key
